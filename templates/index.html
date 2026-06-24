@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronic Tool</title>
+
+    <link rel="icon"
+          type="image/png"
+          href="{{ url_for('static', filename='logo.png') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="card">
+
+    <h1 class="title">
+    <img src="{{ url_for('static', filename='Logo3.png') }}"
+         alt="Logo"
+         class="logo">
+    Electronic Engineering Toolkit
+</h1>
+
+    <p class="subtitle">
+       Toolkit elektronika praktis untuk menghitung parameter osiloskop, menentukan resistor LED yang tepat, dan mengonversi berbagai satuan elektronika dalam satu platform yang mudah digunakan.
+    </p>
+
+    <!-- MENU UTAMA -->
+    <div id="menuUtama">
+
+        <button class="menu-btn"
+                onclick="bukaForm()">
+           📈 Oscilloscope Analyzer
+        </button>
+
+        <button class="menu-btn"
+                onclick="bukaFormLed()">
+           💡 LED Resistor Finder
+        </button>
+
+        <button class="menu-btn"
+                onclick="bukaFormConverter()">
+           🔄 Konverter Satuan Elektronik
+        </button>
+
+    </div>
+
+    <!-- FORM OSCILLOSCOPE -->
+    <div id="formHitung"
+         class="hidden">
+
+        <label>
+            Jumlah Div Vertikal (tinggi gelombang)
+        </label>
+
+        <input type="number"
+               id="divVertikal"
+               placeholder="contoh: 4"
+               step="any">
+
+        <label>
+            Skala Volt/Div (Volt)
+        </label>
+
+        <input type="number"
+               id="voltPerDiv"
+               placeholder="contoh: 2"
+               step="any">
+
+        <label>
+            Jenis Gelombang
+        </label>
+
+        <select id="jenisGelombang">
+
+            <option value="sinus">
+                Sinus
+            </option>
+
+            <option value="kotak">
+                Kotak (Square)
+            </option>
+
+            <option value="segitiga">
+                Segitiga (Triangle)
+            </option>
+
+            <option value="sawtooth">
+                Gigi Gergaji (Sawtooth)
+            </option>
+
+        </select>
+
+        <label>
+            Jumlah Div Horizontal (1 periode)
+        </label>
+
+        <input type="number"
+               id="divHorizontal"
+               placeholder="contoh: 5"
+               step="any">
+
+        <label>
+            Skala Time/Div (detik)
+        </label>
+
+        <input type="number"
+               id="timePerDiv"
+               placeholder="contoh: 0.001"
+               step="any">
+
+        <div class="btn-row">
+
+            <button class="btn-hitung"
+                    onclick="hitungOsiloskop()">
+                Hitung
+            </button>
+
+            <button class="btn-kembali"
+                    onclick="kembaliMenu()">
+                Kembali
+            </button>
+
+        </div>
+
+        <div class="hasil"
+             id="hasilBox">
+
+            <h3>Hasil Perhitungan</h3>
+
+            <table>
+
+                <tr>
+                    <td>Jenis Gelombang</td>
+                    <td id="rJenis">-</td>
+                </tr>
+
+                <tr>
+                    <td>Tegangan Puncak (Vp)</td>
+                    <td id="rVp">-</td>
+                </tr>
+
+                <tr>
+                   <td>Tegangan Puncak ke Puncak (Vpp)</td>
+                   <td id="rVpp">-</td>
+                </tr>
+
+                <tr>
+                    <td>Tegangan RMS (Vrms)</td>
+                    <td id="rVrms">-</td>
+                </tr>
+
+                <tr>
+                   <td>Tegangan Rata-rata (Vavg)</td>
+                   <td id="rVavg">-</td>
+                </tr>
+
+                <tr>
+                    <td>Periode (T)</td>
+                    <td id="rT">-</td>
+                </tr>
+
+                <tr>
+                    <td>Frekuensi (f)</td>
+                    <td id="rF">-</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- FORM LED -->
+    <div id="formLed"
+         class="hidden">
+
+        <label>
+            Tegangan Sumber (V)
+        </label>
+
+        <input type="number"
+               id="vSumber"
+               placeholder="contoh: 9"
+               step="any">
+
+        <label>
+            Warna LED
+        </label>
+
+        <select id="warnaLed">
+
+            <option value="1.8">
+                Infrared (1.8V)
+            </option>
+
+            <option value="2.0">
+                Merah (2.0V)
+            </option>
+
+            <option value="2.1">
+                Kuning (2.1V)
+            </option>
+
+            <option value="2.1">
+                Oranye (2.1V)
+            </option>
+
+            <option value="2.2">
+                Hijau (2.2V)
+            </option>
+
+            <option value="3.2">
+                Biru (3.2V)
+            </option>
+
+            <option value="3.2">
+                Putih (3.2V)
+            </option>
+
+            <option value="3.2">
+                UV (3.2V)
+            </option>
+
+            <option value="custom">
+                Lainnya
+            </option>
+
+        </select>
+
+        <div id="vLedManualWrap"
+             class="hidden">
+
+            <label>
+                Tegangan Forward LED (Vf)
+            </label>
+
+            <input type="number"
+                   id="vLedManual"
+                   placeholder="contoh: 2.5"
+                   step="any">
+
+        </div>
+
+        <label>
+            Jumlah LED
+        </label>
+
+        <input type="number"
+               id="jumlahLed"
+               value="1"
+               min="1">
+
+        <label>
+            Konfigurasi
+        </label>
+
+        <select id="konfigLed">
+
+            <option value="seri">
+                Seri
+            </option>
+
+            <option value="paralel">
+                Paralel
+            </option>
+
+        </select>
+
+       <label>
+    Arus LED
+</label>
+
+<select id="iLed">
+
+    <option value="5">
+        Hemat Daya (5 mA)
+    </option>
+
+    <option value="10">
+        Normal (10 mA)
+    </option>
+
+    <option value="20" selected>
+        Standar (20 mA)
+    </option>
+
+    <option value="30">
+        Terang (30 mA)
+    </option>
+
+    <option value="custom">
+        Custom
+    </option>
+
+</select>
+
+<div id="iLedCustomWrap"
+     class="hidden">
+
+    <label>
+        Arus LED Custom (mA)
+    </label>
+
+    <input type="number"
+           id="iLedCustom"
+           placeholder="contoh: 15"
+           step="any">
+
+</div>
+
+        <div class="btn-row">
+
+            <button class="btn-hitung"
+                    onclick="hitungResistorLed()">
+                Hitung
+            </button>
+
+            <button class="btn-kembali"
+                    onclick="kembaliMenuLed()">
+                Kembali
+            </button>
+
+        </div>
+
+        <div class="hasil"
+             id="hasilLedBox">
+
+            <h3>Hasil Perhitungan</h3>
+
+            <table>
+
+                <tr>
+                    <td>Total Tegangan LED</td>
+                    <td id="rVledTotal">-</td>
+                </tr>
+
+                <tr>
+                    <td>Total Arus</td>
+                    <td id="rITotal">-</td>
+                </tr>
+
+                <tr>
+                    <td>Selisih Tegangan (Vr)</td>
+                    <td id="rVr">-</td>
+                </tr>
+
+                <tr>
+                    <td>Nilai Resistor</td>
+                    <td id="rR">-</td>
+                </tr>
+
+                <tr>
+                    <td>Resistor Standar (dijual pasaran)</td>
+                    <td id="rRStandar">-</td>
+                </tr>
+
+                <tr>
+                    <td>Daya Resistor</td>
+                    <td id="rP">-</td>
+                </tr>
+
+                <tr>
+                    <td>Rating Resistor</td>
+                    <td id="rWatt">-</td>
+                </tr>
+
+            </table>
+
+            <p id="peringatanLed"
+               style="color:red; display:none;">
+            </p>
+
+        </div>
+
+    </div>
+
+   <div id="formConverter" class="hidden">
+
+    <h2>🔄 Electronic Unit Converter</h2>
+
+    <label>Kategori</label>
+
+    <select id="kategoriKonversi"
+            onchange="tampilkanKategoriConverter()">
+
+        <option value="tegangan">
+            ⚡ Tegangan
+        </option>
+
+        <option value="arus">
+            🔌 Arus
+        </option>
+
+        <option value="hambatan">
+            &nbsp;Ω Hambatan
+        </option>
+
+        <option value="kapasitansi">
+            🔋 Kapasitansi
+        </option>
+
+        <option value="frekuensi">
+            📡 Frekuensi
+        </option>
+
+    </select>
+
+    <label>Nilai</label>
+
+    <input type="number"
+           id="nilaiKonversi"
+           step="any">
+
+    <!-- TEGANGAN -->
+
+    <div id="teganganBox">
+
+        <label>Dari</label>
+
+        <select id="teganganDari">
+
+            <option value="mV">mV</option>
+            <option value="V">V</option>
+            <option value="kV">kV</option>
+
+        </select>
+
+        <label>Ke</label>
+
+        <select id="teganganKe">
+
+            <option value="mV">mV</option>
+            <option value="V">V</option>
+            <option value="kV">kV</option>
+
+        </select>
+
+    </div>
+
+    <!-- ARUS -->
+
+    <div id="arusBox" class="hidden">
+
+        <label>Dari</label>
+
+        <select id="arusDari">
+
+            <option value="uA">µA</option>
+            <option value="mA">mA</option>
+            <option value="A">A</option>
+
+        </select>
+
+        <label>Ke</label>
+
+        <select id="arusKe">
+
+            <option value="uA">µA</option>
+            <option value="mA">mA</option>
+            <option value="A">A</option>
+
+        </select>
+
+    </div>
+
+    <!-- HAMBATAN -->
+
+    <div id="hambatanBox" class="hidden">
+
+        <label>Dari</label>
+
+        <select id="hambatanDari">
+
+            <option value="Ω">Ω</option>
+            <option value="kΩ">kΩ</option>
+            <option value="MΩ">MΩ</option>
+
+        </select>
+
+        <label>Ke</label>
+
+        <select id="hambatanKe">
+
+            <option value="Ω">Ω</option>
+            <option value="kΩ">kΩ</option>
+            <option value="MΩ">MΩ</option>
+
+        </select>
+
+    </div>
+
+    <!-- KAPASITANSI -->
+
+    <div id="kapasitansiBox" class="hidden">
+
+        <label>Dari</label>
+
+        <select id="kapasitansiDari">
+
+            <option value="pF">pF</option>
+            <option value="nF">nF</option>
+            <option value="uF">µF</option>
+            <option value="mF">mF</option>
+            <option value="F">F</option>
+
+        </select>
+
+        <label>Ke</label>
+
+        <select id="kapasitansiKe">
+
+            <option value="pF">pF</option>
+            <option value="nF">nF</option>
+            <option value="uF">µF</option>
+            <option value="mF">mF</option>
+            <option value="F">F</option>
+
+        </select>
+
+    </div>
+
+    <!-- FREKUENSI -->
+
+    <div id="frekuensiBox" class="hidden">
+
+        <label>Dari</label>
+
+        <select id="frekuensiDari">
+
+            <option value="Hz">Hz</option>
+            <option value="kHz">kHz</option>
+            <option value="MHz">MHz</option>
+
+        </select>
+
+        <label>Ke</label>
+
+        <select id="frekuensiKe">
+
+            <option value="Hz">Hz</option>
+            <option value="kHz">kHz</option>
+            <option value="MHz">MHz</option>
+
+        </select>
+
+    </div>
+
+    <div class="btn-row">
+
+        <button class="btn-hitung"
+                onclick="hitungKonversi()">
+
+            Konversi
+
+        </button>
+
+        <button class="btn-kembali"
+                onclick="kembaliMenuConverter()">
+
+            Kembali
+
+        </button>
+
+    </div>
+
+    <div class="hasil"
+         id="hasilConverter">
+
+        <h3>Hasil Konversi</h3>
+
+        <p id="hasilKonversiText"></p>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+
+    font-family:'Segoe UI',Arial,sans-serif;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0f2027,
+        #203a43,
+        #2c5364
+    );
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+}
+
+/* ==========================
+   KARTU UTAMA
+========================== */
+
+.card{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:650px;
+
+    padding:35px;
+
+    border-radius:20px;
+
+    background:
+    rgba(255,255,255,0.95);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:
+    0 15px 40px
+    rgba(0,0,0,0.35);
+
+    overflow:hidden;
+}
+
+/* Watermark Logo */
+
+.card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    transform:
+    translate(-50%,-50%);
+
+    width:300px;
+    height:300px;
+
+    background-image:
+    url("logo.png");
+
+    background-repeat:no-repeat;
+
+    background-position:center;
+
+    background-size:contain;
+
+    opacity:0.05;
+
+    pointer-events:none;
+}
+
+.card *{
+
+    position:relative;
+
+    z-index:1;
+}
+
+/* ==========================
+   JUDUL
+========================== */
+
+.title{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    margin-bottom:5px;
+}
+
+.logo{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:contain;
+}
+
+h1{
+
+    color:#203a43;
+
+    text-align:center;
+
+    font-size:32px;
+
+    font-weight:700;
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:25px;
+
+    font-size:14px;
+}
+
+/* ==========================
+   MENU
+========================== */
+
+.menu-btn{
+
+    width:100%;
+
+    border:none;
+
+    padding:15px;
+
+    margin-bottom:12px;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:
+    linear-gradient(
+        135deg,
+        #2c5364,
+        #203a43
+    );
+
+    transition:0.25s;
+}
+
+.menu-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 5px 15px
+    rgba(0,0,0,0.25);
+}
+
+/* ==========================
+   FORM
+========================== */
+
+label{
+
+    display:block;
+
+    margin-top:12px;
+
+    margin-bottom:5px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#333;
+}
+
+input[type="number"],
+select{
+
+    width:100%;
+
+    padding:11px;
+
+    border:1px solid #cfd8dc;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    transition:0.2s;
+}
+
+input[type="number"]:focus,
+select:focus{
+
+    outline:none;
+
+    border-color:#2c5364;
+
+    box-shadow:
+    0 0 8px
+    rgba(44,83,100,0.3);
+}
+
+/* ==========================
+   TOMBOL
+========================== */
+
+.btn-row{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:20px;
+}
+
+.btn-row button{
+
+    flex:1;
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:12px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.2s;
+}
+
+.btn-hitung{
+
+    background:
+    linear-gradient(
+        135deg,
+        #27ae60,
+        #219150
+    );
+
+    color:white;
+}
+
+.btn-hitung:hover{
+
+    transform:translateY(-2px);
+}
+
+.btn-kembali{
+
+    background:#e0e0e0;
+
+    color:#333;
+}
+
+.btn-kembali:hover{
+
+    background:#d0d0d0;
+}
+
+/* ==========================
+   HASIL
+========================== */
+
+.hasil{
+
+    display:none;
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    background:#f5f9fa;
+
+    border-left:5px solid #2c5364;
+}
+
+.hasil h3{
+
+    margin-bottom:10px;
+
+    color:#203a43;
+}
+
+.hasil table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+.hasil tr{
+
+    border-bottom:
+    1px solid #e6ecef;
+}
+
+.hasil td{
+
+    padding:10px 0;
+
+    font-size:14px;
+}
+
+.hasil td:first-child{
+
+    color:#555;
+}
+
+.hasil td:last-child{
+
+    text-align:right;
+
+    font-weight:bold;
+
+    color:#203a43;
+}
+
+/* ==========================
+   WARNING
+========================== */
+
+#peringatanLed{
+
+    margin-top:10px;
+
+    color:#c0392b;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    display:none;
+}
+
+/* ==========================
+   UTILITAS
+========================== */
+
+.hidden{
+
+    display:none;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:600px){
+
+    .card{
+
+        padding:20px;
+    }
+
+    .btn-row{
+
+        flex-direction:column;
+    }
+
+    h1{
+
+        font-size:24px;
+    }
+
+    .logo{
+
+        width:55px;
+        height:55px;
+    }
+}
+
+/* ==========================
+   CONVERTER
+========================== */
+
+#formConverter h2 {
+
+    text-align: center;
+
+    color: #203a43;
+
+    margin-bottom: 20px;
+}
+
+#teganganBox,
+#arusBox,
+#hambatanBox,
+#kapasitansiBox,
+#frekuensiBox {
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    border-radius: 12px;
+
+    background: #f8fbfc;
+
+    border: 1px solid #dbe5e8;
+
+    transition: 0.2s;
+}
+
+#teganganBox:hover,
+#arusBox:hover,
+#hambatanBox:hover,
+#kapasitansiBox:hover,
+#frekuensiBox:hover {
+
+    box-shadow:
+    0 5px 15px
+    rgba(0,0,0,0.08);
+}
+
+#hasilKonversiText {
+
+    text-align: center;
+
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    color: #203a43;
+
+    font-weight: 600;
+}
+
+/* Badge kategori */
+
+#kategoriKonversi {
+
+    font-weight: 600;
+}
+
+/* Tampilan hasil converter */
+
+.converter-result {
+
+    font-size: 22px;
+
+    color: #27ae60;
+
+    font-weight: bold;
+
+    text-align: center;
+}
+
+/* Animasi muncul */
+
+#hasilConverter {
+
+    animation:
+    fadeInConverter
+    0.3s ease;
+}
+
+@keyframes fadeInConverter {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+        translateY(10px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+        translateY(0);
+    }
+}
