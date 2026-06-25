@@ -1,441 +1,544 @@
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+/* ===================================================
+   RESET & BASE
+=================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
+:root {
+    --blue: #2f6fed;
+    --blue-light: #eaf1ff;
+    --green: #1aa971;
+    --green-light: #e7f7ef;
+    --violet: #7c5cf0;
+    --violet-light: #f0ebfd;
 
-    font-family:'Segoe UI',Arial,sans-serif;
+    --ink: #203a43;
+    --muted: #667085;
+    --line: #e4e8f0;
 
-    background:
-    linear-gradient(
-        135deg,
-        #0f2027,
-        #203a43,
-        #2c5364
-    );
-
-    min-height:100vh;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    padding:20px;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 10px;
 }
 
-/* ==========================
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(160deg, #eef3fc 0%, #e6edfb 55%, #dde8fb 100%);
+    min-height: 100vh;
+    padding: 40px;
+    color: var(--ink);
+}
+
+/* ===================================================
    KARTU UTAMA
-========================== */
-
-.card{
-
-    position:relative;
-
-    width:100%;
-
-    max-width:650px;
-
-    padding:35px;
-
-    border-radius:20px;
-
-    background:
-    rgba(255,255,255,0.95);
-
-    backdrop-filter:blur(10px);
-
-    box-shadow:
-    0 15px 40px
-    rgba(0,0,0,0.35);
-
-    overflow:hidden;
+=================================================== */
+.card {
+    max-width: 1450px;
+    width: 100%;
+    margin: auto;
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #ffffff, #f6f9fc);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
 }
 
-/* Watermark Logo */
-
-.card::before{
-
-    content:"";
-
-    position:absolute;
-
-    top:50%;
-    left:50%;
-
-    transform:
-    translate(-50%,-50%);
-
-    width:300px;
-    height:300px;
-
-    background-image:
-    url("logo.png");
-
-    background-repeat:no-repeat;
-
-    background-position:center;
-
-    background-size:contain;
-
-    opacity:0.05;
-
-    pointer-events:none;
+.card::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background-image: url("logo.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: 0.04;
+    pointer-events: none;
 }
 
-.card *{
-
-    position:relative;
-
-    z-index:1;
+.card > * {
+    position: relative;
+    z-index: 1;
 }
 
-/* ==========================
-   JUDUL
-========================== */
-
-.title{
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    margin-bottom:5px;
+/* ===================================================
+   HERO
+=================================================== */
+.hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 70px;
+    margin-bottom: 40px;
 }
 
-.logo{
-
-    width:70px;
-
-    height:70px;
-
-    object-fit:contain;
+.hero-left {
+    display: flex;
+    flex-direction: column;
 }
 
-h1{
-
-    color:#203a43;
-
-    text-align:center;
-
-    font-size:32px;
-
-    font-weight:700;
+.logo-box {
+    width: 95px;
+    height: 95px;
+    margin-bottom: 24px;
+    border-radius: 20px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.subtitle{
-
-    text-align:center;
-
-    color:#666;
-
-    margin-bottom:25px;
-
-    font-size:14px;
+.logo-box img {
+    width: 68px;
 }
 
-/* ==========================
-   MENU
-========================== */
-
-.menu-btn{
-
-    width:100%;
-
-    border:none;
-
-    padding:15px;
-
-    margin-bottom:12px;
-
-    border-radius:10px;
-
-    font-size:16px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    color:white;
-
-    background:
-    linear-gradient(
-        135deg,
-        #2c5364,
-        #203a43
-    );
-
-    transition:0.25s;
+.hero-title {
+    font-size: 56px;
+    line-height: 1.08;
+    font-weight: 800;
+    color: #0b2447;
+    margin-bottom: 18px;
+    letter-spacing: -1.5px;
 }
 
-.menu-btn:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-    0 5px 15px
-    rgba(0,0,0,0.25);
+.hero-desc {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--muted);
+    max-width: 540px;
 }
 
-/* ==========================
-   FORM
-========================== */
-
-label{
-
-    display:block;
-
-    margin-top:12px;
-
-    margin-bottom:5px;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    color:#333;
+.hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 280px;
 }
 
-input[type="number"],
-select{
-
-    width:100%;
-
-    padding:11px;
-
-    border:1px solid #cfd8dc;
-
-    border-radius:8px;
-
-    font-size:14px;
-
-    transition:0.2s;
+.circuit-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
 }
 
-input[type="number"]:focus,
-select:focus{
-
-    outline:none;
-
-    border-color:#2c5364;
-
-    box-shadow:
-    0 0 8px
-    rgba(44,83,100,0.3);
+.hero-image {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 360px;
+    display: block;
+    filter: drop-shadow(0 20px 30px rgba(44, 90, 180, 0.20));
 }
 
-/* ==========================
-   TOMBOL
-========================== */
-
-.btn-row{
-
-    display:flex;
-
-    gap:10px;
-
-    margin-top:20px;
+/* ===================================================
+   MENU UTAMA
+=================================================== */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 10px;
 }
 
-.btn-row button{
-
-    flex:1;
-
-    border:none;
-
-    border-radius:10px;
-
-    padding:12px;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:0.2s;
+.menu-card {
+    background: white;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-md);
+    height: 70px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    font-family: inherit;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-hitung{
-
-    background:
-    linear-gradient(
-        135deg,
-        #27ae60,
-        #219150
-    );
-
-    color:white;
+.menu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
 }
 
-.btn-hitung:hover{
-
-    transform:translateY(-2px);
+.menu-card:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
 }
 
-.btn-kembali{
-
-    background:#e0e0e0;
-
-    color:#333;
+.menu-icon {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn-kembali:hover{
+.icon-blue   { background: var(--blue);   color: #fff; }
+.icon-green  { background: var(--green);  color: #fff; }
+.icon-purple { background: var(--violet); color: #fff; }
 
-    background:#d0d0d0;
+.menu-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
 }
 
-/* ==========================
-   HASIL
-========================== */
-
-.hasil{
-
-    display:none;
-
-    margin-top:25px;
-
-    padding:15px;
-
-    border-radius:10px;
-
-    background:#f5f9fa;
-
-    border-left:5px solid #2c5364;
+/* ===================================================
+   SECTION CARD (form wrapper)
+=================================================== */
+.section-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-top: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 }
 
-.hasil h3{
-
-    margin-bottom:10px;
-
-    color:#203a43;
+.form-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 19px;
+    font-weight: 800;
+    color: #16203a;
+    margin-bottom: 18px;
 }
 
-.hasil table{
-
-    width:100%;
-
-    border-collapse:collapse;
+.form-title svg {
+    color: var(--blue);
+    flex: none;
 }
-
-.hasil tr{
-
-    border-bottom:
-    1px solid #e6ecef;
-}
-
-.hasil td{
-
-    padding:10px 0;
-
-    font-size:14px;
-}
-
-.hasil td:first-child{
-
-    color:#555;
-}
-
-.hasil td:last-child{
-
-    text-align:right;
-
-    font-weight:bold;
-
-    color:#203a43;
-}
-
-/* ==========================
-   WARNING
-========================== */
-
-#peringatanLed{
-
-    margin-top:10px;
-
-    color:#c0392b;
-
-    font-size:13px;
-
-    font-weight:600;
-
-    display:none;
-}
-
-/* ==========================
-   UTILITAS
-========================== */
-
-.hidden{
-
-    display:none;
-}
-
-/* ==========================
-   RESPONSIVE
-========================== */
-
-@media(max-width:600px){
-
-    .card{
-
-        padding:20px;
-    }
-
-    .btn-row{
-
-        flex-direction:column;
-    }
-
-    h1{
-
-        font-size:24px;
-    }
-
-    .logo{
-
-        width:55px;
-        height:55px;
-    }
-}
-
-/* ==========================
-   CONVERTER
-========================== */
 
 #formConverter h2 {
-
     text-align: center;
-
-    color: #203a43;
-
+    color: var(--ink);
     margin-bottom: 20px;
 }
 
+/* ===================================================
+   FIELD LIST (form oscilloscope bergaya ikon)
+=================================================== */
+.field-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--line);
+}
+
+.field-row:last-child {
+    border-bottom: none;
+}
+
+.field-icon {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-blue   { background: var(--blue-light);   color: var(--blue); }
+.bg-green  { background: var(--green-light);  color: var(--green); }
+.bg-violet { background: var(--violet-light); color: var(--violet); }
+.bg-orange { background: #fef1de; color: #f6a623; }
+.bg-pink   { background: #fde9ef; color: #ef4d80; }
+
+.field-label {
+    flex: 1 1 240px;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.field-label strong {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.field-label small {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.field-input {
+    flex: 0 0 300px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.field-input input,
+.field-input select {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    border-radius: 10px !important;
+    border: 1.5px solid var(--line);
+    background: #fbfcfe;
+    font-size: 14px;
+    color: var(--ink);
+    font-family: inherit;
+}
+
+.field-input select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6' fill='none' stroke='%236b7484' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 34px;
+    cursor: pointer;
+    appearance: none;
+}
+
+.field-input input::placeholder {
+    color: #aab2c2;
+}
+
+.field-unit {
+    flex: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    min-width: 36px;
+}
+
+.btn-hitung-wide {
+    width: 100%;
+    margin-top: 22px;
+    height: 54px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(180deg, #2bb673, #1f9c5f);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: 0 14px 28px -14px rgba(31, 156, 95, 0.55);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-hitung-wide:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 32px -14px rgba(31, 156, 95, 0.6);
+}
+
+.btn-hitung-wide .chev {
+     position: absolute;
+     right: 18px;
+}
+
+.btn-reset-wide {
+    width: 100%;
+    margin-top: 12px;
+    height: 50px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    background: #f6f8fc;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.btn-reset-wide:hover {
+    background: #eef1f7;
+}
+
+.hint-note {
+    margin: 18px 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--muted);
+}
+
+.hint-note svg {
+    flex: none;
+    color: var(--blue);
+}
+
+/* ===================================================
+   FORM FIELDS
+=================================================== */
+label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    height: 50px;
+    padding: 0 14px;
+    border: 1.5px solid #cfd8dc;
+    border-radius: 12px !important;
+    background: #fafbfc;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--ink);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.15);
+}
+
+/* ===================================================
+   TOMBOL
+=================================================== */
+.btn-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.btn-row button {
+    flex: 1;
+    height: 54px;
+    border: none;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.btn-hitung {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    box-shadow: 0 14px 28px -14px rgba(39, 174, 96, 0.55);
+}
+
+.btn-hitung:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 32px -14px rgba(39, 174, 96, 0.6);
+}
+
+.btn-kembali {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.btn-kembali:hover {
+    background: #d0d0d0;
+}
+
+/* ===================================================
+   HASIL
+=================================================== */
+.hasil {
+    display: none;
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 16px;
+    background: #f5f9fa;
+    border-left: 5px solid var(--blue);
+    animation: fadeInResult 0.3s ease;
+}
+
+@keyframes fadeInResult {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.hasil h3 {
+    margin-bottom: 10px;
+    color: #16203a;
+}
+
+.hasil table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hasil tr {
+    border-bottom: 1px solid #e6ecef;
+}
+
+.hasil td {
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.hasil td:first-child {
+    color: #555;
+}
+
+.hasil td:last-child {
+    text-align: right;
+    font-weight: bold;
+    color: #16203a;
+}
+
+/* ===================================================
+   WARNING
+=================================================== */
+#peringatanLed {
+    margin-top: 10px;
+    color: #c0392b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ===================================================
+   CONVERTER — kategori boxes
+=================================================== */
 #teganganBox,
 #arusBox,
 #hambatanBox,
 #kapasitansiBox,
 #frekuensiBox {
-
     margin-top: 15px;
-
-    padding: 15px;
-
-    border-radius: 12px;
-
+    padding: 16px;
+    border-radius: 14px;
     background: #f8fbfc;
-
     border: 1px solid #dbe5e8;
-
-    transition: 0.2s;
+    transition: box-shadow 0.2s ease;
 }
 
 #teganganBox:hover,
@@ -443,69 +546,277 @@ select:focus{
 #hambatanBox:hover,
 #kapasitansiBox:hover,
 #frekuensiBox:hover {
-
-    box-shadow:
-    0 5px 15px
-    rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 #hasilKonversiText {
-
     text-align: center;
-
     font-size: 18px;
-
     line-height: 1.8;
-
-    color: #203a43;
-
+    color: #16203a;
     font-weight: 600;
 }
 
-/* Badge kategori */
-
-#kategoriKonversi {
-
-    font-weight: 600;
+/* ===================================================
+   CONVERTER — tampilan baru (kartu kategori, dsb)
+=================================================== */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
 }
 
-/* Tampilan hasil converter */
+.conv-block {
+    margin-top: 24px;
+}
 
-.converter-result {
+.conv-block:first-of-type {
+    margin-top: 8px;
+}
 
-    font-size: 22px;
+.conv-step-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #16203a;
+    margin-bottom: 12px;
+}
 
-    color: #27ae60;
+.conv-category-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
 
-    font-weight: bold;
+.conv-cat-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 52px;
+    padding: 0 16px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
 
+.conv-cat-card:hover {
+    border-color: #b9cdfb;
+}
+
+.conv-cat-card.active {
+    border-color: var(--blue);
+    background: var(--blue-light);
+    box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.12);
+}
+
+.conv-cat-icon {
+    flex: none;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.conv-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.conv-input-col label {
+    margin-top: 0;
+}
+
+#satuanTujuan {
+    max-width: 360px;
+}
+
+.conv-result-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.conv-result-box {
+    flex: 1;
+    border-radius: 14px;
+    padding: 18px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-/* Animasi muncul */
-
-#hasilConverter {
-
-    animation:
-    fadeInConverter
-    0.3s ease;
+.conv-result-before {
+    background: var(--blue-light);
+    border: 1.5px solid #b9cdfb;
 }
 
-@keyframes fadeInConverter {
+.conv-result-after {
+    background: var(--green-light);
+    border: 1.5px solid #a7e6c6;
+}
 
-    from {
+.conv-result-label {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
 
-        opacity: 0;
+.conv-result-before .conv-result-label {
+    color: var(--blue);
+}
 
-        transform:
-        translateY(10px);
+.conv-result-after .conv-result-label {
+    color: var(--green);
+}
+
+.conv-result-value {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.1;
+    word-break: break-word;
+}
+
+.conv-result-value sup {
+    font-size: 0.55em;
+    font-weight: 700;
+    position: relative;
+    top: -0.6em;
+}
+
+.conv-result-unit {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.conv-arrow {
+    flex: none;
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===================================================
+   UTILITAS
+=================================================== */
+.hidden {
+    display: none !important;
+}
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+@media (max-width: 992px) {
+    .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
     }
 
-    to {
+    .hero-left {
+        align-items: center;
+    }
 
-        opacity: 1;
+    .hero-title {
+        font-size: 42px;
+    }
 
-        transform:
-        translateY(0);
+    .hero-desc {
+        margin: 0 auto;
+    }
+
+    .hero-right {
+        height: 220px;
+    }
+
+    .hero-image {
+        max-width: 300px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 16px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .hero-title {
+        font-size: 32px;
+    }
+
+    .hero-desc {
+        font-size: 15px;
+    }
+
+    .logo-box {
+        width: 70px;
+        height: 70px;
+    }
+
+    .logo-box img {
+        width: 50px;
+    }
+
+    .section-card {
+        padding: 20px;
+    }
+
+    .btn-row {
+        flex-direction: column;
+    }
+
+    .field-row {
+        flex-wrap: wrap;
+    }
+
+    .field-input {
+        flex: 1 1 100%;
+        margin-left: 56px;
+        width: calc(100% - 56px);
+    }
+
+    .conv-category-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .conv-input-row {
+        grid-template-columns: 1fr;
+    }
+
+    .conv-result-row {
+        flex-direction: column;
+    }
+
+    .conv-arrow svg {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 460px) {
+    .field-input {
+        margin-left: 0;
+        width: 100%;
     }
 }

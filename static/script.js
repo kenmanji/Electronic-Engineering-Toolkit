@@ -1,5 +1,7 @@
 function bukaForm() {
 
+     tutupSemuaForm();
+
     document.getElementById('menuUtama')
         .classList.add('hidden');
 
@@ -8,6 +10,18 @@ function bukaForm() {
 
     document.getElementById('hasilBox')
         .style.display = 'none';
+}
+
+function tutupSemuaForm(){
+
+    document.getElementById("formHitung")
+            .classList.add("hidden");
+
+    document.getElementById("formLed")
+            .classList.add("hidden");
+
+    document.getElementById("formConverter")
+            .classList.add("hidden");
 }
 
 function kembaliMenu() {
@@ -28,6 +42,8 @@ function kembaliMenu() {
 }
 
 function bukaFormLed() {
+
+     tutupSemuaForm();
 
     document.getElementById('menuUtama')
         .classList.add('hidden');
@@ -394,7 +410,164 @@ async function hitungResistorLed() {
     }
 }
 
+/* ===================================================
+   CONVERTER — prefiks SI lengkap (Yotta s/d Yocto)
+   Daftar satuan tidak lagi di-hardcode; dibuat otomatis
+   dari tabel prefiks SI agar sinkron dengan backend
+   (lihat converter.py: PREFIKS_SI / URUTAN_PREFIKS).
+=================================================== */
+
+// Satuan dasar per kategori (harus sama persis dengan backend)
+const SATUAN_DASAR = {
+    tegangan:    'V',
+    arus:        'A',
+    hambatan:    'Ω',
+    kapasitansi: 'F',
+    frekuensi:   'Hz'
+};
+
+// Nama panjang satuan dasar (untuk label dropdown)
+const NAMA_SATUAN_DASAR = {
+    'V':  'Volt',
+    'A':  'Ampere',
+    'Ω':  'Ohm',
+    'F':  'Farad',
+    'Hz': 'Hertz'
+};
+
+// Urutan prefiks SI dari terbesar (yotta) ke terkecil (yocto)
+const URUTAN_PREFIKS = [
+    { p: 'Y',  n: 'yotta' },
+    { p: 'Z',  n: 'zetta' },
+    { p: 'E',  n: 'exa'   },
+    { p: 'P',  n: 'peta'  },
+    { p: 'T',  n: 'tera'  },
+    { p: 'G',  n: 'giga'  },
+    { p: 'M',  n: 'mega'  },
+    { p: 'k',  n: 'kilo'  },
+    { p: 'h',  n: 'hecto' },
+    { p: 'da', n: 'deca'  },
+    { p: '',   n: ''      },
+    { p: 'd',  n: 'deci'  },
+    { p: 'c',  n: 'centi' },
+    { p: 'm',  n: 'mili'  },
+    { p: 'u',  n: 'mikro' }, // ditampilkan sebagai µ
+    { p: 'n',  n: 'nano'  },
+    { p: 'p',  n: 'piko'  },
+    { p: 'f',  n: 'femto' },
+    { p: 'a',  n: 'atto'  },
+    { p: 'z',  n: 'zepto' },
+    { p: 'y',  n: 'yokto' }
+];
+
+/**
+ * Menghasilkan daftar satuan (value + label) untuk sebuah kategori,
+ * dari yotta sampai yocto, mengikuti urutan terbesar -> terkecil.
+ */
+function buatDaftarSatuan(kategori) {
+
+    const dasar = SATUAN_DASAR[kategori];
+    const namaDasar = NAMA_SATUAN_DASAR[dasar] || dasar;
+
+    return URUTAN_PREFIKS.map(({ p, n }) => {
+
+        const simbolTampil = (p === 'u') ? `µ${dasar}` : `${p}${dasar}`;
+
+        const label = (p === '')
+            ? `${simbolTampil} (${namaDasar})`
+            : `${simbolTampil} (${n} ${namaDasar})`;
+
+        return { value: simbolTampil, label };
+    });
+}
+
+/**
+ * Mengubah simbol satuan (misal 'kHz', 'dHz', 'µA', 'MΩ') menjadi
+ * label kepanjangannya, contoh: 'kHz' -> '(kilo Hertz)', 'Hz' -> '(Hertz)'.
+ * Dicari dengan mencocokkan akhiran satuan dasar lalu sisanya
+ * dicocokkan ke tabel prefiks.
+ */
+function namaLengkapSatuan(satuan) {
+
+    const satuanNorm = satuan.replace('µ', 'u');
+
+    // cari satuan dasar mana yang cocok sebagai akhiran
+    let dasarCocok = null;
+
+    for (const kategori in SATUAN_DASAR) {
+        const dasar = SATUAN_DASAR[kategori];
+        if (satuanNorm.endsWith(dasar)) {
+            if (!dasarCocok || dasar.length > dasarCocok.length) {
+                dasarCocok = dasar;
+            }
+        }
+    }
+
+    if (!dasarCocok) {
+        return `(${satuan})`;
+    }
+
+    const prefiksSimbol = satuanNorm.slice(0, satuanNorm.length - dasarCocok.length);
+    const namaDasar = NAMA_SATUAN_DASAR[dasarCocok] || dasarCocok;
+
+    const entriPrefiks = URUTAN_PREFIKS.find(({ p }) => p === prefiksSimbol);
+
+    if (!entriPrefiks) {
+        return `(${satuan})`;
+    }
+
+    return entriPrefiks.p === ''
+        ? `(${namaDasar})`
+        : `(${entriPrefiks.n} ${namaDasar})`;
+}
+
+/**
+ * Memformat angka hasil konversi agar tetap rapi di kotak hasil.
+ * Jika angka terlalu besar, terlalu kecil, atau representasi
+ * desimalnya terlalu panjang, ditampilkan dalam notasi ilmiah
+ * (mis. 1.23 × 10⁸) alih-alih angka panjang biasa.
+ * Mengembalikan HTML (pakai <sup> untuk eksponen), bukan teks polos.
+ */
+function formatAngkaHasil(angka) {
+
+    const n = Number(angka);
+
+    if (Number.isNaN(n)) {
+        return String(angka);
+    }
+
+    if (n === 0) {
+        return '0';
+    }
+
+    const absN = Math.abs(n);
+    const representasiBiasa = String(angka);
+
+    // Pakai notasi ilmiah jika angka sangat besar/kecil, atau
+    // representasi desimal biasanya terlalu panjang untuk kotak hasil.
+    const perluNotasiIlmiah =
+        absN >= 1e9 ||
+        absN < 1e-6 ||
+        representasiBiasa.replace('-', '').length > 12;
+
+    if (!perluNotasiIlmiah) {
+        return representasiBiasa;
+    }
+
+    const eksponen = Math.floor(Math.log10(absN));
+    const mantissa = n / Math.pow(10, eksponen);
+
+    // Bulatkan mantissa ke 3 desimal, buang nol di belakang yang tidak perlu
+    const mantissaStr = parseFloat(mantissa.toFixed(3)).toString();
+
+    return `${mantissaStr} × 10<sup>${eksponen}</sup>`;
+}
+
+
+
 function bukaFormConverter() {
+
+     tutupSemuaForm();
 
     document.getElementById('menuUtama')
         .classList.add('hidden');
@@ -404,6 +577,8 @@ function bukaFormConverter() {
 
     document.getElementById('hasilConverter')
         .style.display = 'none';
+
+    pilihKategoriConverter('tegangan');
 }
 
 
@@ -417,6 +592,53 @@ function kembaliMenuConverter() {
 
     document.getElementById('nilaiKonversi')
         .value = '';
+
+    document.getElementById('hasilNilaiAwal').innerText = '-';
+    document.getElementById('hasilNilaiAkhir').innerText = '-';
+    document.getElementById('hasilSatuanAwalLabel').innerHTML = '&nbsp;';
+    document.getElementById('hasilSatuanTujuanLabel').innerHTML = '&nbsp;';
+}
+
+
+/**
+ * Mengisi dropdown "Satuan Awal" dan "Satuan Tujuan"
+ * berdasarkan kategori yang aktif (otomatis yotta s/d yocto).
+ */
+function pilihKategoriConverter(kategori) {
+
+    kategoriAktifConverter = kategori;
+
+    // sinkronkan select kategori tersembunyi (kompatibilitas)
+    const kategoriSelect = document.getElementById('kategoriKonversi');
+    if (kategoriSelect) {
+        kategoriSelect.value = kategori;
+    }
+
+    // tandai kartu kategori yang aktif
+    document.querySelectorAll('.conv-cat-card').forEach(card => {
+        card.classList.toggle('active', card.dataset.kategori === kategori);
+    });
+
+    const daftarSatuan = buatDaftarSatuan(kategori);
+
+    // isi dropdown satuan awal
+    const satuanAwalSelect = document.getElementById('satuanAwal');
+    satuanAwalSelect.innerHTML = daftarSatuan
+        .map(s => `<option value="${s.value}">${s.label}</option>`)
+        .join('');
+
+    // isi dropdown satuan tujuan
+    const satuanTujuanSelect = document.getElementById('satuanTujuan');
+    satuanTujuanSelect.innerHTML = daftarSatuan
+        .map(s => `<option value="${s.value}">${s.label}</option>`)
+        .join('');
+
+    // default: satuan awal = posisi "kilo" (lebih umum dipakai), satuan tujuan = satuan dasar
+    const idxKilo = daftarSatuan.findIndex(s => s.value === `k${SATUAN_DASAR[kategori]}`);
+    const idxDasar = daftarSatuan.findIndex(s => s.value === SATUAN_DASAR[kategori]);
+
+    satuanAwalSelect.selectedIndex = idxKilo >= 0 ? idxKilo : 0;
+    satuanTujuanSelect.selectedIndex = idxDasar >= 0 ? idxDasar : 0;
 }
 
 
@@ -424,78 +646,8 @@ async function hitungKonversi() {
 
     try {
 
-        const kategori =
-            document.getElementById(
-                'kategoriKonversi'
-            ).value;
-
-        let dari;
-        let ke;
-
-        if (kategori === 'tegangan') {
-
-            dari =
-                document.getElementById(
-                    'teganganDari'
-                ).value;
-
-            ke =
-                document.getElementById(
-                    'teganganKe'
-                ).value;
-        }
-
-        else if (kategori === 'arus') {
-
-            dari =
-                document.getElementById(
-                    'arusDari'
-                ).value;
-
-            ke =
-                document.getElementById(
-                    'arusKe'
-                ).value;
-        }
-
-        else if (kategori === 'hambatan') {
-
-            dari =
-                document.getElementById(
-                    'hambatanDari'
-                ).value;
-
-            ke =
-                document.getElementById(
-                    'hambatanKe'
-                ).value;
-        }
-
-        else if (kategori === 'kapasitansi') {
-
-            dari =
-                document.getElementById(
-                    'kapasitansiDari'
-                ).value;
-
-            ke =
-                document.getElementById(
-                    'kapasitansiKe'
-                ).value;
-        }
-
-        else {
-
-            dari =
-                document.getElementById(
-                    'frekuensiDari'
-                ).value;
-
-            ke =
-                document.getElementById(
-                    'frekuensiKe'
-                ).value;
-        }
+        const dari = document.getElementById('satuanAwal').value;
+        const ke = document.getElementById('satuanTujuan').value;
 
         const nilaiAwal =
             document.getElementById(
@@ -529,9 +681,17 @@ async function hitungKonversi() {
                 'hasilKonversiText'
             ).innerText =
                 hasil.error;
+
+            document.getElementById('hasilNilaiAwal').innerText = '-';
+            document.getElementById('hasilNilaiAkhir').innerText = hasil.error;
+            document.getElementById('hasilSatuanAwalLabel').innerHTML = '&nbsp;';
+            document.getElementById('hasilSatuanTujuanLabel').innerHTML = '&nbsp;';
         }
 
         else {
+
+            const hasilFormatted = formatAngkaHasil(hasil.hasil);
+            const nilaiAwalFormatted = formatAngkaHasil(nilaiAwal);
 
             document.getElementById(
                 'hasilKonversiText'
@@ -539,6 +699,12 @@ async function hitungKonversi() {
 
                 `<b>Nilai Awal:</b> ${nilaiAwal} ${dari}<br>
                  <b>Hasil:</b> ${hasil.hasil} ${ke}`;
+
+            document.getElementById('hasilNilaiAwal').innerHTML = `${nilaiAwalFormatted} ${dari}`;
+            document.getElementById('hasilNilaiAkhir').innerHTML = `${hasilFormatted} ${ke}`;
+
+            document.getElementById('hasilSatuanAwalLabel').innerText = namaLengkapSatuan(dari);
+            document.getElementById('hasilSatuanTujuanLabel').innerText = namaLengkapSatuan(ke);
         }
 
         document.getElementById(
@@ -555,75 +721,11 @@ async function hitungKonversi() {
     }
 }
 
-function tampilkanKategoriConverter() {
+document.addEventListener('DOMContentLoaded', () => {
 
-    const kategori =
-        document.getElementById(
-            'kategoriKonversi'
-        ).value;
-
-    const semuaKategori = [
-
-        'teganganBox',
-        'arusBox',
-        'hambatanBox',
-        'kapasitansiBox',
-        'frekuensiBox'
-    ];
-
-    semuaKategori.forEach(id => {
-
-        document.getElementById(id)
-            .classList.add('hidden');
+    document.querySelectorAll('.conv-cat-card').forEach(card => {
+        card.addEventListener('click', () => {
+            pilihKategoriConverter(card.dataset.kategori);
+        });
     });
-
-    if (kategori === 'tegangan') {
-
-        document.getElementById(
-            'teganganBox'
-        ).classList.remove('hidden');
-    }
-
-    if (kategori === 'arus') {
-
-        document.getElementById(
-            'arusBox'
-        ).classList.remove('hidden');
-    }
-
-    if (kategori === 'hambatan') {
-
-        document.getElementById(
-            'hambatanBox'
-        ).classList.remove('hidden');
-    }
-
-    if (kategori === 'kapasitansi') {
-
-        document.getElementById(
-            'kapasitansiBox'
-        ).classList.remove('hidden');
-    }
-
-    if (kategori === 'frekuensi') {
-
-        document.getElementById(
-            'frekuensiBox'
-        ).classList.remove('hidden');
-    }
-}
-
-document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-
-        if (
-            document.getElementById(
-                'kategoriKonversi'
-            )
-        ) {
-
-            tampilkanKategoriConverter();
-        }
-    }
-);
+});

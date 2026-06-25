@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electronic Engineering Toolkit</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="icon"
           type="image/png"
           href="{{ url_for('static', filename='logo.png') }}">
@@ -19,114 +21,224 @@
 
 <div class="card">
 
-    <h1 class="title">
-    <img src="{{ url_for('static', filename='Logo3.png') }}"
-         alt="Logo"
-         class="logo">
-    Electronic Engineering Toolkit
-</h1>
+    <div class="hero">
 
-    <p class="subtitle">
-       Toolkit elektronika praktis untuk menghitung parameter osiloskop, menentukan resistor LED yang tepat, dan mengonversi berbagai satuan elektronika dalam satu platform yang mudah digunakan.
-    </p>
+        <div class="hero-left">
+
+            <div class="logo-box">
+                <img src="{{ url_for('static', filename='Logo3.png') }}">
+            </div>
+
+            <h1 class="hero-title">
+                Electronic<br>
+                Engineering Toolkit
+            </h1>
+
+            <p class="hero-desc">
+                Toolkit praktis untuk menghitung parameter osiloskop,
+                resistor LED, dan mengonversi berbagai satuan
+                elektronika dalam satu platform yang mudah digunakan.
+            </p>
+
+        </div>
+
+        <div class="hero-right">
+
+            <!-- Ilustrasi oscilloscope (SVG, tidak butuh file gambar) -->
+            <svg viewBox="0 0 420 320" class="circuit-bg" aria-hidden="true">
+                <g stroke="#bcd2f7" stroke-width="2" fill="none" opacity="0.7">
+                    <path d="M30 40 H110 V90"/>
+                    <circle cx="30" cy="40" r="4" fill="#bcd2f7"/>
+                    <circle cx="110" cy="90" r="4" fill="#bcd2f7"/>
+                    <path d="M380 20 V70 H320"/>
+                    <circle cx="380" cy="20" r="4" fill="#bcd2f7"/>
+                    <path d="M60 280 H140 V250"/>
+                    <circle cx="60" cy="280" r="4" fill="#bcd2f7"/>
+                    <path d="M360 260 H300 V300 H260"/>
+                    <circle cx="360" cy="260" r="4" fill="#bcd2f7"/>
+                    <circle cx="260" cy="300" r="4" fill="#bcd2f7"/>
+                    <path d="M20 160 H70"/>
+                    <circle cx="20" cy="160" r="4" fill="#bcd2f7"/>
+                </g>
+            </svg>
+
+            <svg viewBox="0 0 360 260" class="hero-image" aria-hidden="true">
+                <path d="M60 250 C 20 230, 10 200, 40 180 C 70 160, 90 190, 120 175"
+                      fill="none" stroke="#2f6fed" stroke-width="7" stroke-linecap="round"/>
+                <line x1="40" y1="180" x2="22" y2="248" stroke="#1c1c28" stroke-width="6" stroke-linecap="round"/>
+                <circle cx="20" cy="252" r="5" fill="#1c1c28"/>
+
+                <rect x="100" y="20" rx="14" ry="14" width="240" height="170" fill="#eef1f6" stroke="#c7cedb" stroke-width="2"/>
+                <rect x="116" y="36" rx="6" ry="6" width="150" height="100" fill="#10241f"/>
+                <polyline points="124,90 140,90 150,60 165,120 178,75 190,100 205,90 260,90"
+                          fill="none" stroke="#4ee08a" stroke-width="3"/>
+
+                <circle cx="300" cy="65" r="16" fill="#dfe4ec" stroke="#b9c1d1" stroke-width="2"/>
+                <circle cx="300" cy="65" r="3" fill="#8a93a6"/>
+                <circle cx="300" cy="115" r="16" fill="#dfe4ec" stroke="#b9c1d1" stroke-width="2"/>
+                <circle cx="300" cy="115" r="3" fill="#8a93a6"/>
+
+                <rect x="120" y="150" width="18" height="10" rx="3" fill="#c7cedb"/>
+                <rect x="144" y="150" width="18" height="10" rx="3" fill="#c7cedb"/>
+                <rect x="168" y="150" width="18" height="10" rx="3" fill="#c7cedb"/>
+                <rect x="192" y="150" width="18" height="10" rx="3" fill="#c7cedb"/>
+                <rect x="216" y="150" width="18" height="10" rx="3" fill="#c7cedb"/>
+                <circle cx="300" cy="160" r="10" fill="#3a3f4b"/>
+            </svg>
+
+        </div>
+
+    </div>
 
     <!-- MENU UTAMA -->
-    <div id="menuUtama">
+    <div id="menuUtama" class="menu-grid">
 
-        <button class="menu-btn"
-                onclick="bukaForm()">
-           📈 Oscilloscope Analyzer
+        <button class="menu-card" onclick="bukaForm()">
+            <span class="menu-icon icon-blue">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M2 12h4l2 7 4-14 2 7h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="menu-text">
+                Oscilloscope Calculator
+            </span>
         </button>
 
-        <button class="menu-btn"
-                onclick="bukaFormLed()">
-           💡 LED Resistor Finder
+        <button class="menu-card" onclick="bukaFormLed()">
+            <span class="menu-icon icon-green">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.4.3.6.8.6 1.2v.5h6v-.5c0-.4.2-.9.6-1.2A6 6 0 0 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="menu-text">
+                LED Resistor Calculator
+            </span>
         </button>
 
-        <button class="menu-btn"
-                onclick="bukaFormConverter()">
-           🔄 Konverter Satuan Elektronik
+        <button class="menu-card" onclick="bukaFormConverter()">
+            <span class="menu-icon icon-purple">
+                <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 7h11l-3-3M17 17H6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="menu-text">
+                Unit Converter
+            </span>
         </button>
 
     </div>
 
     <!-- FORM OSCILLOSCOPE -->
-    <div id="formHitung"
-         class="hidden">
+    <div id="formHitung" class="section-card hidden">
 
-        <label>
-            Jumlah Div Vertikal (tinggi gelombang)
-        </label>
+        <h2 class="form-title">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M2 12h4l2 7 4-14 2 7h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Pengaturan Osciloscope
+        </h2>
 
-        <input type="number"
-               id="divVertikal"
-               placeholder="contoh: 4"
-               step="any">
+        <div class="field-list">
 
-        <label>
-            Skala Volt/Div (Volt)
-        </label>
+            <div class="field-row">
+                <span class="field-icon bg-blue">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 20V4M6 9l6-6 6 6M6 15l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Jumlah Div Vertikal</strong>
+                    <small>Tinggi gelombang dalam divisi</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="divVertikal"
+                           placeholder="Contoh: 4"
+                           step="any">
+                    <span class="field-unit">div</span>
+                </span>
+            </div>
 
-        <input type="number"
-               id="voltPerDiv"
-               placeholder="contoh: 2"
-               step="any">
+            <div class="field-row">
+                <span class="field-icon bg-green">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><text x="12" y="17" text-anchor="middle" font-size="15" font-weight="700" fill="currentColor" font-family="Arial">V</text></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Skala Volt/Div</strong>
+                    <small>Skala tegangan per divisi</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="voltPerDiv"
+                           placeholder="Contoh: 2"
+                           step="any">
+                    <span class="field-unit">V/div</span>
+                </span>
+            </div>
 
-        <label>
-            Jenis Gelombang
-        </label>
+            <div class="field-row">
+                <span class="field-icon bg-violet">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 12c2-5 4 5 6 0s4 5 6 0 4 5 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Jenis Gelombang</strong>
+                    <small>Pilih bentuk gelombang</small>
+                </span>
+                <span class="field-input">
+                    <select id="jenisGelombang">
+                        <option value="sinus">Sinus</option>
+                        <option value="kotak">Kotak (Square)</option>
+                        <option value="segitiga">Segitiga (Triangle)</option>
+                        <option value="sawtooth">Gigi Gergaji (Sawtooth)</option>
+                    </select>
+                </span>
+            </div>
 
-        <select id="jenisGelombang">
+            <div class="field-row">
+                <span class="field-icon bg-orange">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 12h18M3 12l4-4M3 12l4 4M21 12l-4-4M21 12l-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Jumlah Div Horizontal (1 Periode)</strong>
+                    <small>Lebar 1 periode dalam divisi</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="divHorizontal"
+                           placeholder="Contoh: 5"
+                           step="any">
+                    <span class="field-unit">div</span>
+                </span>
+            </div>
 
-            <option value="sinus">
-                Sinus
-            </option>
-
-            <option value="kotak">
-                Kotak (Square)
-            </option>
-
-            <option value="segitiga">
-                Segitiga (Triangle)
-            </option>
-
-            <option value="sawtooth">
-                Gigi Gergaji (Sawtooth)
-            </option>
-
-        </select>
-
-        <label>
-            Jumlah Div Horizontal (1 periode)
-        </label>
-
-        <input type="number"
-               id="divHorizontal"
-               placeholder="contoh: 5"
-               step="any">
-
-        <label>
-            Skala Time/Div (detik)
-        </label>
-
-        <input type="number"
-               id="timePerDiv"
-               placeholder="contoh: 0.001"
-               step="any">
-
-        <div class="btn-row">
-
-            <button class="btn-hitung"
-                    onclick="hitungOsiloskop()">
-                Hitung
-            </button>
-
-            <button class="btn-kembali"
-                    onclick="kembaliMenu()">
-                Kembali
-            </button>
+            <div class="field-row">
+                <span class="field-icon bg-pink">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l4 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Skala Time/Div</strong>
+                    <small>Waktu per divisi</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="timePerDiv"
+                           placeholder="Contoh: 0.001"
+                           step="any">
+                    <span class="field-unit">s/div</span>
+                </span>
+            </div>
 
         </div>
+
+        <button class="btn-hitung-wide"
+                type="button"
+                onclick="hitungOsiloskop()">
+            <svg viewBox="0 0 24 24" width="18" height="18"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h2M8 15h2M12 15h2M16 15h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Hitung</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" class="chev"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button class="btn-reset-wide"
+                type="button"
+                onclick="kembaliMenu()">
+           <svg viewBox="0 0 24 24" width="16" height="16"><path d="M11 17l-5-5 5-5M19 12H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Kembali</span>
+        </button>
+
+        <p class="hint-note">
+            <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="10.5" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1" fill="currentColor"/></svg>
+            Pastikan semua nilai diisi dengan benar sebelum menghitung.
+        </p>
 
         <div class="hasil"
              id="hasilBox">
@@ -177,156 +289,229 @@
     </div>
 
     <!-- FORM LED -->
-    <div id="formLed"
-         class="hidden">
+    <div id="formLed" class="section-card hidden">
 
-        <label>
-            Tegangan Sumber (V)
-        </label>
+        <h2 class="form-title">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.4.3.6.8.6 1.2v.5h6v-.5c0-.4.2-.9.6-1.2A6 6 0 0 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            LED Resistor Calculator
+        </h2>
 
-        <input type="number"
-               id="vSumber"
-               placeholder="contoh: 9"
-               step="any">
+        <div class="field-list">
 
-        <label>
-            Warna LED
-        </label>
+            <div class="field-row">
+                <span class="field-icon bg-blue">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Tegangan Sumber (V)</strong>
+                    <small>Tegangan sumber daya DC</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="vSumber"
+                           placeholder="Contoh: 9"
+                           step="any">
+                    <span class="field-unit">V</span>
+                </span>
+            </div>
 
-        <select id="warnaLed">
+            <div class="field-row">
+                <span class="field-icon bg-green">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"/>
+                        <circle cx="13.5" cy="6.5" r=".6" fill="currentColor"/>
+                        <circle cx="17.5" cy="10.5" r=".6" fill="currentColor"/>
+                        <circle cx="6.5" cy="12.5" r=".6" fill="currentColor"/>
+                        <circle cx="8.5" cy="7.5" r=".6" fill="currentColor"/>
+                    </svg>
+                </span>
+                <span class="field-label">
+                    <strong>Warna LED</strong>
+                    <small>Pilih warna LED</small>
+                </span>
+                <span class="field-input">
+                    <select id="warnaLed">
 
-            <option value="1.8">
-                Infrared (1.8V)
-            </option>
+                        <option value="1.8">
+                            Infrared (1.8V)
+                        </option>
 
-            <option value="2.0">
-                Merah (2.0V)
-            </option>
+                        <option value="2.0">
+                            Merah (2.0V)
+                        </option>
 
-            <option value="2.1">
-                Kuning (2.1V)
-            </option>
+                        <option value="2.1">
+                            Kuning (2.1V)
+                        </option>
 
-            <option value="2.1">
-                Oranye (2.1V)
-            </option>
+                        <option value="2.1">
+                            Oranye (2.1V)
+                        </option>
 
-            <option value="2.2">
-                Hijau (2.2V)
-            </option>
+                        <option value="2.2">
+                            Hijau (2.2V)
+                        </option>
 
-            <option value="3.2">
-                Biru (3.2V)
-            </option>
+                        <option value="3.2">
+                            Biru (3.2V)
+                        </option>
 
-            <option value="3.2">
-                Putih (3.2V)
-            </option>
+                        <option value="3.2">
+                            Putih (3.2V)
+                        </option>
 
-            <option value="3.2">
-                UV (3.2V)
-            </option>
+                        <option value="3.2">
+                            UV (3.2V)
+                        </option>
 
-            <option value="custom">
-                Lainnya
-            </option>
+                        <option value="custom">
+                            Lainnya
+                        </option>
 
-        </select>
+                    </select>
+                </span>
+            </div>
 
-        <div id="vLedManualWrap"
-             class="hidden">
+            <div id="vLedManualWrap" class="field-row hidden">
+                <span class="field-icon bg-blue">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Tegangan Forward LED (Vf)</strong>
+                    <small>Tegangan maju LED custom</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="vLedManual"
+                           placeholder="Contoh: 2.5"
+                           step="any">
+                    <span class="field-unit">V</span>
+                </span>
+            </div>
 
-            <label>
-                Tegangan Forward LED (Vf)
-            </label>
+            <div class="field-row">
+                <span class="field-icon bg-violet">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="0.8" x2="12" y2="2.4"/>
+                        <line x1="7.4" y1="2.7" x2="8.6" y2="4.1"/>
+                        <line x1="16.6" y1="2.7" x2="15.4" y2="4.1"/>
+                        <path d="M8.7 10.2c0-4.3 1.6-6.7 3.3-6.7s3.3 2.4 3.3 6.7v3h-6.6Z" fill="currentColor" fill-opacity="0.18"/>
+                        <line x1="8.2" y1="13.4" x2="15.8" y2="13.4" stroke-width="1.8"/>
+                        <line x1="10.3" y1="13.4" x2="9.6" y2="20.6"/>
+                        <line x1="13.7" y1="13.4" x2="14.6" y2="21.6"/>
+                    </svg>
+                </span>
+                <span class="field-label">
+                    <strong>Jumlah LED</strong>
+                    <small>Jumlah LED yang digunakan</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="jumlahLed"
+                           value="1"
+                           min="1">
+                </span>
+            </div>
 
-            <input type="number"
-                   id="vLedManual"
-                   placeholder="contoh: 2.5"
-                   step="any">
+            <div class="field-row">
+                <span class="field-icon bg-orange">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </span>
+                <span class="field-label">
+                    <strong>Konfigurasi</strong>
+                    <small>Konfigurasi rangkaian LED</small>
+                </span>
+                <span class="field-input">
+                    <select id="konfigLed">
+
+                        <option value="seri">
+                            Seri
+                        </option>
+
+                        <option value="paralel">
+                            Paralel
+                        </option>
+
+                    </select>
+                </span>
+            </div>
+
+            <div class="field-row">
+                <span class="field-icon bg-pink">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><text x="12" y="17.5" text-anchor="middle" font-size="16" font-weight="700" font-style="italic" font-family="Georgia, 'Times New Roman', serif" fill="currentColor">i</text></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Arus LED</strong>
+                    <small>Arus operasi LED</small>
+                </span>
+                <span class="field-input">
+                    <select id="iLed">
+
+                        <option value="5">
+                            Hemat Daya (5 mA)
+                        </option>
+
+                        <option value="10">
+                            Normal (10 mA)
+                        </option>
+
+                        <option value="20" selected>
+                            Standar (20 mA)
+                        </option>
+
+                        <option value="30">
+                            Terang (30 mA)
+                        </option>
+
+                        <option value="custom">
+                            Custom
+                        </option>
+
+                    </select>
+                </span>
+            </div>
+
+            <div id="iLedCustomWrap" class="field-row hidden">
+                <span class="field-icon bg-pink">
+                    <svg viewBox="0 0 24 24" width="18" height="18"><text x="12" y="17.5" text-anchor="middle" font-size="16" font-weight="700" font-style="italic" font-family="Georgia, 'Times New Roman', serif" fill="currentColor">i</text></svg>
+                </span>
+                <span class="field-label">
+                    <strong>Arus LED Custom</strong>
+                    <small>Nilai arus LED custom</small>
+                </span>
+                <span class="field-input">
+                    <input type="number"
+                           id="iLedCustom"
+                           placeholder="Contoh: 15"
+                           step="any">
+                    <span class="field-unit">mA</span>
+                </span>
+            </div>
 
         </div>
 
-        <label>
-            Jumlah LED
-        </label>
+        <button class="btn-hitung-wide"
+                type="button"
+                onclick="hitungResistorLed()">
+            <svg viewBox="0 0 24 24" width="18" height="18"><rect x="4" y="3" width="16" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h2M8 15h2M12 15h2M16 15h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Hitung</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" class="chev"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
 
-        <input type="number"
-               id="jumlahLed"
-               value="1"
-               min="1">
+        <button class="btn-reset-wide"
+                type="button"
+                onclick="kembaliMenuLed()">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M11 17l-5-5 5-5M19 12H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Kembali</span>
+        </button>
 
-        <label>
-            Konfigurasi
-        </label>
-
-        <select id="konfigLed">
-
-            <option value="seri">
-                Seri
-            </option>
-
-            <option value="paralel">
-                Paralel
-            </option>
-
-        </select>
-
-       <label>
-    Arus LED
-</label>
-
-<select id="iLed">
-
-    <option value="5">
-        Hemat Daya (5 mA)
-    </option>
-
-    <option value="10">
-        Normal (10 mA)
-    </option>
-
-    <option value="20" selected>
-        Standar (20 mA)
-    </option>
-
-    <option value="30">
-        Terang (30 mA)
-    </option>
-
-    <option value="custom">
-        Custom
-    </option>
-
-</select>
-
-<div id="iLedCustomWrap"
-     class="hidden">
-
-    <label>
-        Arus LED Custom (mA)
-    </label>
-
-    <input type="number"
-           id="iLedCustom"
-           placeholder="contoh: 15"
-           step="any">
-
-</div>
-
-        <div class="btn-row">
-
-            <button class="btn-hitung"
-                    onclick="hitungResistorLed()">
-                Hitung
-            </button>
-
-            <button class="btn-kembali"
-                    onclick="kembaliMenuLed()">
-                Kembali
-            </button>
-
-        </div>
+        <p class="hint-note">
+            <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="10.5" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1" fill="currentColor"/></svg>
+            Pastikan semua nilai diisi dengan benar sebelum menghitung.
+        </p>
 
         <div class="hasil"
              id="hasilLedBox">
@@ -380,205 +565,134 @@
 
     </div>
 
-   <div id="formConverter" class="hidden">
+    <!-- FORM CONVERTER -->
+    <div id="formConverter" class="section-card hidden">
 
-    <h2>🔄 Electronic Unit Converter</h2>
+        <h2 class="form-title">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 7h11l-3-3M17 17H6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Electronic Unit Converter
+        </h2>
 
-    <label>Kategori</label>
+        <!-- 1. KATEGORI -->
+        <div class="conv-block">
+            <h3 class="conv-step-title">1. Pilih Kategori Konversi</h3>
 
-    <select id="kategoriKonversi"
-            onchange="tampilkanKategoriConverter()">
+            <div class="conv-category-grid" id="kategoriGrid">
 
-        <option value="tegangan">
-            ⚡ Tegangan
-        </option>
+                <button type="button" class="conv-cat-card active" data-kategori="tegangan">
+                    <span class="conv-cat-icon" style="color:#f6a623;">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M13 2 L4 14h6l-1 8 9-12h-6l1-8z" fill="currentColor"/></svg>
+                    </span>
+                    <span>Tegangan</span>
+                </button>
 
-        <option value="arus">
-            🔌 Arus
-        </option>
+                <button type="button" class="conv-cat-card" data-kategori="arus">
+                    <span class="conv-cat-icon" style="color:#ef4d80;">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.4.3.6.8.6 1.2v.5h6v-.5c0-.4.2-.9.6-1.2A6 6 0 0 0 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span>Arus</span>
+                </button>
 
-        <option value="hambatan">
-            &nbsp;Ω Hambatan
-        </option>
+                <button type="button" class="conv-cat-card" data-kategori="hambatan">
+                    <span class="conv-cat-icon" style="color:var(--blue);">Ω</span>
+                    <span>Hambatan</span>
+                </button>
 
-        <option value="kapasitansi">
-            🔋 Kapasitansi
-        </option>
+                <button type="button" class="conv-cat-card" data-kategori="kapasitansi">
+                    <span class="conv-cat-icon" style="color:var(--green);">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><rect x="7" y="2" width="10" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="10" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="2"/></svg>
+                    </span>
+                    <span>Kapasitansi</span>
+                </button>
 
-        <option value="frekuensi">
-            📡 Frekuensi
-        </option>
+                <button type="button" class="conv-cat-card" data-kategori="frekuensi">
+                    <span class="conv-cat-icon" style="color:var(--violet);">
+                        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 12c2-5 4 5 6 0s4 5 6 0 4 5 6 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span>Frekuensi</span>
+                </button>
 
-    </select>
+            </div>
+        </div>
 
-    <label>Nilai</label>
-
-    <input type="number"
-           id="nilaiKonversi"
-           step="any">
-
-    <!-- TEGANGAN -->
-
-    <div id="teganganBox">
-
-        <label>Dari</label>
-
-        <select id="teganganDari">
-
-            <option value="mV">mV</option>
-            <option value="V">V</option>
-            <option value="kV">kV</option>
-
+        <!-- hidden select asli, dipertahankan agar kompatibel dengan script.js -->
+        <select id="kategoriKonversi" class="visually-hidden" tabindex="-1" aria-hidden="true">
+            <option value="tegangan">Tegangan</option>
+            <option value="arus">Arus</option>
+            <option value="hambatan">Hambatan</option>
+            <option value="kapasitansi">Kapasitansi</option>
+            <option value="frekuensi">Frekuensi</option>
         </select>
 
-        <label>Ke</label>
+        <!-- 2. NILAI AWAL -->
+        <div class="conv-block">
+            <h3 class="conv-step-title">2. Input Nilai Awal</h3>
 
-        <select id="teganganKe">
+            <div class="conv-input-row">
+                <div class="conv-input-col">
+                    <label>Nilai</label>
+                    <input type="number" id="nilaiKonversi" step="any" placeholder="Contoh: 1000">
+                </div>
+                <div class="conv-input-col">
+                    <label>Satuan Awal</label>
+                    <select id="satuanAwal"></select>
+                </div>
+            </div>
+        </div>
 
-            <option value="mV">mV</option>
-            <option value="V">V</option>
-            <option value="kV">kV</option>
+        <!-- 3. SATUAN TUJUAN -->
+        <div class="conv-block">
+            <h3 class="conv-step-title">3. Pilih Satuan Tujuan</h3>
+            <div class="conv-input-col">
+                <select id="satuanTujuan"></select>
+            </div>
+        </div>
 
-        </select>
+        <!-- 4. HASIL -->
+        <div class="conv-block">
+            <h3 class="conv-step-title">4. Hasil Konversi</h3>
 
-    </div>
+            <div class="conv-result-row">
+                <div class="conv-result-box conv-result-before">
+                    <span class="conv-result-label">Nilai Awal (Sebelum Konversi)</span>
+                    <span class="conv-result-value" id="hasilNilaiAwal">-</span>
+                    <span class="conv-result-unit" id="hasilSatuanAwalLabel">&nbsp;</span>
+                </div>
 
-    <!-- ARUS -->
+                <span class="conv-arrow" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="22" height="22"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
 
-    <div id="arusBox" class="hidden">
+                <div class="conv-result-box conv-result-after">
+                    <span class="conv-result-label">Hasil Konversi</span>
+                    <span class="conv-result-value" id="hasilNilaiAkhir">-</span>
+                    <span class="conv-result-unit" id="hasilSatuanTujuanLabel">&nbsp;</span>
+                </div>
+            </div>
 
-        <label>Dari</label>
+            <!-- dipertahankan untuk kompatibilitas script.js (diisi tapi disembunyikan secara visual) -->
+            <p id="hasilKonversiText" class="visually-hidden"></p>
+        </div>
 
-        <select id="arusDari">
-
-            <option value="uA">µA</option>
-            <option value="mA">mA</option>
-            <option value="A">A</option>
-
-        </select>
-
-        <label>Ke</label>
-
-        <select id="arusKe">
-
-            <option value="uA">µA</option>
-            <option value="mA">mA</option>
-            <option value="A">A</option>
-
-        </select>
-
-    </div>
-
-    <!-- HAMBATAN -->
-
-    <div id="hambatanBox" class="hidden">
-
-        <label>Dari</label>
-
-        <select id="hambatanDari">
-
-            <option value="Ω">Ω</option>
-            <option value="kΩ">kΩ</option>
-            <option value="MΩ">MΩ</option>
-
-        </select>
-
-        <label>Ke</label>
-
-        <select id="hambatanKe">
-
-            <option value="Ω">Ω</option>
-            <option value="kΩ">kΩ</option>
-            <option value="MΩ">MΩ</option>
-
-        </select>
-
-    </div>
-
-    <!-- KAPASITANSI -->
-
-    <div id="kapasitansiBox" class="hidden">
-
-        <label>Dari</label>
-
-        <select id="kapasitansiDari">
-
-            <option value="pF">pF</option>
-            <option value="nF">nF</option>
-            <option value="uF">µF</option>
-            <option value="mF">mF</option>
-            <option value="F">F</option>
-
-        </select>
-
-        <label>Ke</label>
-
-        <select id="kapasitansiKe">
-
-            <option value="pF">pF</option>
-            <option value="nF">nF</option>
-            <option value="uF">µF</option>
-            <option value="mF">mF</option>
-            <option value="F">F</option>
-
-        </select>
-
-    </div>
-
-    <!-- FREKUENSI -->
-
-    <div id="frekuensiBox" class="hidden">
-
-        <label>Dari</label>
-
-        <select id="frekuensiDari">
-
-            <option value="Hz">Hz</option>
-            <option value="kHz">kHz</option>
-            <option value="MHz">MHz</option>
-
-        </select>
-
-        <label>Ke</label>
-
-        <select id="frekuensiKe">
-
-            <option value="Hz">Hz</option>
-            <option value="kHz">kHz</option>
-            <option value="MHz">MHz</option>
-
-        </select>
-
-    </div>
-
-    <div class="btn-row">
-
-        <button class="btn-hitung"
-                onclick="hitungKonversi()">
-
-            Konversi
-
+        <button class="btn-hitung-wide" type="button" onclick="hitungKonversi()">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Konversi</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" class="chev"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
 
-        <button class="btn-kembali"
-                onclick="kembaliMenuConverter()">
-
-            Kembali
-
+        <button class="btn-reset-wide" type="button" onclick="kembaliMenuConverter()">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M11 17l-5-5 5-5M19 12H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Kembali</span>
         </button>
 
+        <div class="hasil" id="hasilConverter" style="display:none;"></div>
+
+        <p class="hint-note">
+            <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="10.5" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7.5" r="1" fill="currentColor"/></svg>
+            Pastikan semua nilai diisi dengan benar sebelum menghitung.
+        </p>
+        
     </div>
-
-    <div class="hasil"
-         id="hasilConverter">
-
-        <h3>Hasil Konversi</h3>
-
-        <p id="hasilKonversiText"></p>
-
-    </div>
-
-</div>
 
 </div>
 
